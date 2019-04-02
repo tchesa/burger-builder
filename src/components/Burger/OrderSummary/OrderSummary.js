@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Button from '../../UI/Button/Button'
+
 const orderSummary = props => {
   const ingredientSummary = Object.keys(props.ingredients).map(key => <li key={key}><span style={{textTransform: 'capitalize'}}>{key}</span>: {props.ingredients[key]}</li>)
   return (
@@ -10,6 +12,8 @@ const orderSummary = props => {
         {ingredientSummary}
       </ul>
       <p>Continue to checkout?</p>
+      <Button type='Danger' onClick={props.purchaseCanceled}>CANCEL</Button>
+      <Button type='Success' onClick={props.purchaseContinued}>CONTINUE</Button>
     </React.Fragment>
   )
 }
