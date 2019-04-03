@@ -11,14 +11,14 @@ class FullPost extends Component {
 
   componentDidUpdate (prevProps) {
     if (this.props.id && (!prevProps.id || prevProps.id !== this.props.id)) {
-      axios.get(`https://jsonplaceholder.typicode.com/posts/${this.props.id}`).then(response => {
+      axios.get(`posts/${this.props.id}`).then(response => {
         this.setState({post: response.data})
       })
     }
   }
 
   deletePostHandler = () => {
-    axios.delete(`https://jsonplaceholder.typicode.com/posts/${this.props.id}`).then(response => {
+    axios.delete(`posts/${this.props.id}`).then(response => {
       // this.setState({post: response.data})
       console.log(response)
     })
