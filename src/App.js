@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom'
 
 import Courses from './containers/Courses/Courses';
 import Users from './containers/Users/Users';
@@ -9,10 +9,22 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <Switch>
-            <Route path='/courses' component={Courses}/>
-            <Route path='/users' component={Users}/>
-          </Switch>
+          <React.Fragment>
+            <nav>
+              <ul>
+                <li>
+                  <NavLink to='/courses' exact>Courses</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/users' exact>Users</NavLink>
+                </li>
+              </ul>
+            </nav>
+            <Switch>
+              <Route path='/courses' component={Courses}/>
+              <Route path='/users' component={Users}/>
+            </Switch>
+          </React.Fragment>
         </BrowserRouter>
         {/* <ol style={{textAlign: 'left'}}>
           <li>Add Routes to load "Users" and "Courses" on different pages (by entering a URL, without Links)</li> DONE
