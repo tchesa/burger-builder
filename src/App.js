@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom'
 
 import Courses from './containers/Courses/Courses';
 import Users from './containers/Users/Users';
+import Course from './containers/Course/Course'
 
 class App extends Component {
   render () {
@@ -21,15 +22,16 @@ class App extends Component {
               </ul>
             </nav>
             <Switch>
-              <Route path='/courses' component={Courses}/>
+              <Route path='/course' component={Course}/>
+              <Route path='/courses' exact component={Courses}/>
               <Route path='/users' component={Users}/>
             </Switch>
           </React.Fragment>
         </BrowserRouter>
         {/* <ol style={{textAlign: 'left'}}>
           <li>Add Routes to load "Users" and "Courses" on different pages (by entering a URL, without Links)</li> DONE
-          <li>Add a simple navigation with two links => One leading to "Users", one leading to "Courses"</li>
-          <li>Make the courses in "Courses" clickable by adding a link and load the "Course" component in the place of "Courses" (without passing any data for now)</li>
+          <li>Add a simple navigation with two links => One leading to "Users", one leading to "Courses"</li> DONE
+          <li>Make the courses in "Courses" clickable by adding a link and load the "Course" component in the place of "Courses" (without passing any data for now)</li> DONE
           <li>Pass the course ID to the "Course" page and output it there</li>
           <li>Pass the course title to the "Course" page - pass it as a param or score bonus points by passing it as query params (you need to manually parse them though!)</li>
           <li>Load the "Course" component as a nested component of "Courses"</li>
