@@ -10,6 +10,10 @@ class Course extends Component {
     this.setState({title: this.getUrlParam('title')})
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) this.setState({title: this.getUrlParam('title')})
+  }
+
   getUrlParam(name) {
     const search = this.props.location.search
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');

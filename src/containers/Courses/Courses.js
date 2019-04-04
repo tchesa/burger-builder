@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom'
 
 import './Courses.css';
+import Course from '../Course/Course'
 
 class Courses extends Component {
   state = {
@@ -13,7 +15,7 @@ class Courses extends Component {
 
   viewCourse = course => {
     this.props.history.push({
-      pathname: `/course/${course.id}`,
+      pathname: `/courses/${course.id}`,
       search: `?title=${course.title}`
     })
   }
@@ -29,6 +31,7 @@ class Courses extends Component {
             })
           }
         </section>
+        <Route path='/courses/:id' component={Course}/>
       </div>
     );
   }
