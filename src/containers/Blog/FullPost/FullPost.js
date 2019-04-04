@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from '../../../axios'
 
 import './FullPost.css';
 
@@ -9,12 +9,10 @@ class FullPost extends Component {
     post: null
   }
 
-  componentDidUpdate (prevProps) {
-    if (this.props.id && (!prevProps.id || prevProps.id !== this.props.id)) {
-      axios.get(`posts/${this.props.id}`).then(response => {
-        this.setState({post: response.data})
-      })
-    }
+  componentDidMount (prevProps) {
+    axios.get(`posts/${this.props.match.params.id}`).then(response => {
+      this.setState({post: response.data})
+    })
   }
 
   deletePostHandler = () => {
