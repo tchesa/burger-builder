@@ -18,16 +18,20 @@ const INGREDIENT_PRICES = {
 class BurgerBuilder extends Component {
 
   state = {
-    ingredients: {
-      salad: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0
-    },
+    ingredients: null,
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
-    loading: false
+    loading: false,
+    error: false
+  }
+
+  componentDidMount() {
+    axios.get('https://react-my-burger-bdd91.firebaseio.com/ingredients.json').then(response => {
+      this.setState({ingredients: response.data})
+    }).catch(error => {
+      this.setState({error: true})
+    })
   }
 
   updatePurchaseState = (updatedIngredients) => {
@@ -98,12 +102,14 @@ class BurgerBuilder extends Component {
     const disabledInfo = { ...this.state.ingredients }
     for (let key in disabledInfo) disabledInfo[key] = this.state.ingredients[key] <= 0
 
+    const loadingObject = this.state.error? <p>Ingredients can't be loaded</p>: <Spinner />
+
     return (
       <React.Fragment>
-        <Burger ingredients={this.state.ingredients}/>
+        {this.state.ingredients? <Burger ingredients={this.state.ingredients}/>: loadingObject}
         <BuildControls ingredientAdded={this.addIngredientHandler} ingredientRemoved={this.removeIngredientHandler} disabledInfo={disabledInfo} price={this.state.totalPrice} purchasable={this.state.purchasable} ordered={this.purchaseHandler}/>
         <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-          {this.state.loading? <Spinner />: <OrderSummary ingredients={this.state.ingredients} purchaseCanceled={this.purchaseCancelHandler} purchaseContinued={this.purchaseContinueHandler} price={this.state.totalPrice}/>}
+          {this.state.loading? <Spinner />: (this.state.ingredients? <OrderSummary ingredients={this.state.ingredients} purchaseCanceled={this.purchaseCancelHandler} purchaseContinued={this.purchaseContinueHandler} price={this.state.totalPrice}/>: null)}
         </Modal>
       </React.Fragment>
     )
