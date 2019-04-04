@@ -11,9 +11,10 @@ class Courses extends Component {
     ]
   }
 
-  viewCourse = id => {
+  viewCourse = course => {
     this.props.history.push({
-      pathname: `/course/${id}`
+      pathname: `/course/${course.id}`,
+      search: `?title=${course.title}`
     })
   }
 
@@ -24,7 +25,7 @@ class Courses extends Component {
         <section className="Courses">
           {
             this.state.courses.map(course => {
-              return <article key={course.id} className="Course" onClick={() => this.viewCourse(course.id)}>{course.title}</article>;
+              return <article key={course.id} className="Course" onClick={() => this.viewCourse(course)}>{course.title}</article>;
             })
           }
         </section>
