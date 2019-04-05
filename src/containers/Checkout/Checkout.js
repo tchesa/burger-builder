@@ -21,8 +21,7 @@ class Checkout extends Component {
     const ingredients = {}
     let price = 0
     for (let param of query.entries()) {
-      console.log(param)
-      if (param[0] === 'price') console.log(param[1])
+      if (param[0] === 'price') price = parseFloat(param[1])
       else ingredients[param[0]] = +param[1]
     }
     console.log(price)
