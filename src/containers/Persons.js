@@ -24,15 +24,15 @@ class Persons extends Component {
 
 const mapStateToProps = state => {
   return {
-  persons: state.persons
+    persons: state.persons
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-  onAddPerson: () => dispatch({type: actionTypes.ADD}),
-  onRemovePerson: id => dispatch({type: actionTypes.REMOVE, id})
+    onAddPerson: (name, age) => dispatch({type: actionTypes.ADD, personData: {name, age}}),
+    onRemovePerson: id => dispatch({type: actionTypes.REMOVE, id})
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Persons);
+export default connect(mapStateToProps, mapDispatchToProps)(Persons)
