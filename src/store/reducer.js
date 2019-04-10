@@ -5,17 +5,12 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'INCREMENT':    return { ...state, counter: state.counter + 1 }
-    case 'DECREMENT':    return { ...state, counter: state.counter = 1 }
-    case 'ADD':          return { ...state, counter: state.counter + action.amount }
-    case 'SUBTRACT':     return { ...state, counter: state.counter - action.amount }
-    case 'STORE_RESULT': return {
-      ...state,
-      results: state.results.concat({
-        id: new Date(),
-        value: state.counter
-      })
-    }
+    case 'INCREMENT':     return { ...state, counter: state.counter + 1 }
+    case 'DECREMENT':     return { ...state, counter: state.counter - 1 }
+    case 'ADD':           return { ...state, counter: state.counter + action.amount }
+    case 'SUBTRACT':      return { ...state, counter: state.counter - action.amount }
+    case 'STORE_RESULT':  return { ...state, results: state.results.concat({ id: new Date(), value: state.counter }) }
+    case 'DELETE_RESULT': return { ...state, results: state.results.filter(result => result.id !== action.id) }
     default: return state
   }
 }
