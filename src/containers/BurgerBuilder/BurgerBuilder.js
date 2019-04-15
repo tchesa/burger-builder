@@ -13,7 +13,6 @@ import * as actionTypes from '../../store/actions'
 class BurgerBuilder extends Component {
 
   state = {
-    purchasable: false,
     purchasing: false,
     loading: false,
     error: false
@@ -29,7 +28,7 @@ class BurgerBuilder extends Component {
 
   updatePurchaseState = (updatedIngredients) => {
     const sum = Object.keys(updatedIngredients).reduce((s, el) => s + updatedIngredients[el], 0)
-    this.setState({purchasable: sum > 0})
+    return sum > 0
   }
 
   purchaseHandler = () => {
@@ -83,7 +82,7 @@ class BurgerBuilder extends Component {
     return (
       <React.Fragment>
         {this.props.ingredients? <Burger ingredients={this.props.ingredients}/>: loadingObject}
-        <BuildControls ingredientAdded={this.props.onIngredientAdded} ingredientRemoved={this.props.onIngredientRemoved} disabledInfo={disabledInfo} price={this.props.totalPrice} purchasable={this.state.purchasable} ordered={this.purchaseHandler}/>
+        <BuildControls ingredientAdded={this.props.onIngredientAdded} ingredientRemoved={this.props.onIngredientRemoved} disabledInfo={disabledInfo} price={this.props.totalPrice} purchasable={this.updatePurchaseState(this.props.ingredients)} ordered={this.purchaseHandler}/>
         <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
           {this.state.loading? <Spinner />: (this.props.ingredients? <OrderSummary ingredients={this.props.ingredients} purchaseCanceled={this.purchaseCancelHandler} purchaseContinued={this.purchaseContinueHandler} price={this.props.totalPrice}/>: null)}
         </Modal>
