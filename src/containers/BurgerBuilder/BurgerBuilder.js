@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import axios from '../../axios-orders'
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal'
@@ -13,17 +12,11 @@ import * as burgerBuilderActions from '../../store/actions/index'
 class BurgerBuilder extends Component {
 
   state = {
-    purchasing: false,
-    loading: false,
-    error: false
+    purchasing: false
   }
 
   componentDidMount() {
-    axios.get('https://react-my-burger-bdd91.firebaseio.com/ingredients.json').then(response => {
-      this.setState({ingredients: response.data})
-    }).catch(error => {
-      this.setState({error: true})
-    })
+
   }
 
   updatePurchaseState = (updatedIngredients) => {
